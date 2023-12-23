@@ -1,3 +1,5 @@
+include .envrc
+
 # ================================ #
 # HELP
 # ================================ #
@@ -10,7 +12,7 @@ help:
 # ================================ #
 .PHONY: run
 run:
-	go run ./cmd/api ${fileName}
+	go run ./cmd/api --timeout=${timeout} --filename=${filename} --shuffle=${shuffle}
 
 # ================================ #
 # QUALITY CONTROL
