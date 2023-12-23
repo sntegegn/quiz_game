@@ -37,7 +37,7 @@ func quiz(fileName string, t time.Duration, shuffle bool) (int, int) {
 	totalCount = len(records)
 
 	if shuffle {
-		records = shuffleRecord(records)
+		records = shuffleRecords(records)
 	}
 
 	fmt.Println("Press any key to start the game:")
@@ -55,9 +55,9 @@ func quiz(fileName string, t time.Duration, shuffle bool) (int, int) {
 	}()
 
 	for _, record := range records {
+		fmt.Println(record.q)
 		answerCh := make(chan string)
 		go func() {
-			fmt.Println(record[0])
 			val, err := buf.ReadString('\n')
 			if err != nil {
 				log.Fatal(err)
@@ -69,7 +69,7 @@ func quiz(fileName string, t time.Duration, shuffle bool) (int, int) {
 		case <-done:
 			return correctCount, totalCount
 		case val := <-answerCh:
-			if val == record[1] {
+			if val == record.a {
 				correctCount += 1
 			}
 		}
